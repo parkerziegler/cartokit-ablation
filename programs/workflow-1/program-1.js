@@ -5,7 +5,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "./style.css";
 import mapboxgl from "mapbox-gl";
 import penumbraPaths from "./data/nyt-nasa-penumbra-paths.json";
-mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken = "pk.eyJ1IjoicGFya2VyemllZ2xlciIsImEiOiJjbG5tYm01Mm0yNWQ2Mm9wZTMzbXVmMW5hIn0.BNtWKuymyJJh-eEWoGuhCg";
 const map = new mapboxgl.Map({
   container: "map",
   style: "https://tiles.stadiamaps.com/styles/stamen_toner_lite.json",

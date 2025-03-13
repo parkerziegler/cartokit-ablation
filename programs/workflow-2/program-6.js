@@ -4,7 +4,8 @@ performance.mark("fe-start");
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./style.css";
 import mapboxgl from "mapbox-gl";
-mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken =
+  "pk.eyJ1IjoicGFya2VyemllZ2xlciIsImEiOiJjbG5tYm01Mm0yNWQ2Mm9wZTMzbXVmMW5hIn0.BNtWKuymyJJh-eEWoGuhCg";
 import * as d3 from "d3";
 
 async function fetchGeoJSON(url) {
