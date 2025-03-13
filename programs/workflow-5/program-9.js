@@ -92,13 +92,13 @@ map.on("idle", () => {
     map.getSource("american-crow-population-change__2") &&
     map.isSourceLoaded("american-crow-population-change__2")
   ) {
-    performance.mark("fe-idle-end");
+    performance.mark("fe-ttq-end");
     const { duration } = performance.measure(
-      "fe-idle",
+      "fe-ttq",
       "fe-start",
-      "fe-idle-end"
+      "fe-ttq-end"
     );
 
-    console.log("fe-idle", duration, "program-9");
+    console.log("fe-ttq", duration, "program-9");
   }
 });

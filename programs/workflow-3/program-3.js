@@ -109,13 +109,13 @@ map.on("idle", () => {
     map.getSource("winter-temperature-change__1") &&
     map.isSourceLoaded("winter-temperature-change__1")
   ) {
-    performance.mark("fe-idle-end");
+    performance.mark("fe-ttq-end");
     const { duration } = performance.measure(
-      "fe-idle",
+      "fe-ttq",
       "fe-start",
-      "fe-idle-end"
+      "fe-ttq-end"
     );
 
-    console.log("fe-idle", duration, "program-3");
+    console.log("fe-ttq", duration, "program-3");
   }
 });

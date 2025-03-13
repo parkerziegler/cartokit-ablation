@@ -29,7 +29,7 @@ map.on("load", () => {
 performance.mark("fe-end");
 
 map.once("idle", () => {
-  performance.mark("fe-idle-end");
+  performance.mark("fe-ttq-end");
 
   const { duration: feDuration } = performance.measure(
     "fe",
@@ -37,11 +37,11 @@ map.once("idle", () => {
     "fe-end"
   );
   const { duration: feIdleDuration } = performance.measure(
-    "fe-idle",
+    "fe-ttq",
     "fe-start",
-    "fe-idle-end"
+    "fe-ttq-end"
   );
 
   console.log("fe", feDuration, "program-3");
-  console.log("fe-idle", feIdleDuration, "program-3");
+  console.log("fe-ttq", feIdleDuration, "program-3");
 });

@@ -90,11 +90,11 @@ export function registerConsoleListener(
         );
         break;
       }
-      case "fe-idle": {
+      case "fe-ttq": {
         const duration = await msg.args()[1].jsonValue();
         const programId = await msg.args()[2].jsonValue();
         await appendToJsonArray(
-          path.resolve(__dirname, "../../results/fe-idle.json"),
+          path.resolve(__dirname, "../../results/fe-ttq.json"),
           {
             duration,
             playwrightWorkflowId,

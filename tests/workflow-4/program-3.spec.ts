@@ -16,7 +16,7 @@ test.describe("workflow-4/program-3", async () => {
     registerConsoleListener(page, "workflow-4");
 
     await page.waitForEvent("console", {
-      predicate: async (msg) => (await msg.args()[0].jsonValue()) === "fe-idle",
+      predicate: async (msg) => (await msg.args()[0].jsonValue()) === "fe-ttq",
     });
   });
 });
