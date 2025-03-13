@@ -1,0 +1,89 @@
+performance.mark("fe-start");
+
+// Begin program.
+import "mapbox-gl/dist/mapbox-gl.css";
+import "./style.css";
+import mapboxgl from "mapbox-gl";
+import transponderGaps from "./data/wapo-fishing-boat-transponder-gaps.json";
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
+import * as d3 from "d3";
+
+function deriveQuantiles(domain, range) {
+  const quantiles = d3.scaleQuantile().domain(domain).range(range).quantiles();
+
+  return quantiles;
+}
+
+function computeDomain(features, attribute) {
+  return features.map((feature) => feature.properties[attribute]);
+}
+
+function deriveColorScale(features, attribute, steps) {
+  const domain = computeDomain(features, attribute);
+  const range = d3.schemeOranges[steps];
+  const quantiles = deriveQuantiles(domain, range);
+
+  const prelude = ["step", ["get", attribute], range[0]];
+  const stops = range.reduce(
+    (acc, color, i) => (i === 0 ? acc : acc.concat([quantiles[i - 1], color])),
+    []
+  );
+
+  return [...prelude, ...stops];
+}
+
+const map = new mapboxgl.Map({
+  container: "map",
+  style: "https://tiles.stadiamaps.com/styles/stamen_toner_lite.json",
+  center: [-38.03890879151288, -22.746267141714],
+  zoom: 3.006948499474222,
+});
+map.on("load", () => {
+  performance.mark("fe-computation-start");
+  const fillColor = deriveColorScale(transponderGaps.features, "count", 5);
+  performance.mark("fe-computation-end");
+
+  map.addSource("transponder-gaps__1", {
+    type: "geojson",
+    data: transponderGaps,
+  });
+  map.addLayer({
+    id: "transponder-gaps__1",
+    source: "transponder-gaps__1",
+    type: "fill",
+    paint: {
+      "fill-color": fillColor,
+      "fill-opacity": 0.75,
+    },
+  });
+
+  // End computation.
+  const { duration } = performance.measure("fe", "fe-start", "fe-end");
+  const { duration: computationDuration } = performance.measure(
+    "fe-computation",
+    "fe-computation-start",
+    "fe-computation-end"
+  );
+
+  console.log("fe", duration + computationDuration, "program-3");
+});
+
+// End program.
+performance.mark("fe-end");
+
+map.on("idle", () => {
+  // Ensure the source data is loaded.
+  if (
+    map.getSource("transponder-gaps__1") &&
+    map.isSourceLoaded("transponder-gaps__1")
+  ) {
+    performance.mark("fe-idle-end");
+    const { duration } = performance.measure(
+      "fe-idle",
+      "fe-start",
+      "fe-idle-end"
+    );
+
+    console.log("fe-idle", duration, "program-3");
+  }
+});
