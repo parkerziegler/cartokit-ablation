@@ -80,21 +80,18 @@ export function registerConsoleListener(
       case "fe": {
         const duration = await msg.args()[1].jsonValue();
         const programId = await msg.args()[2].jsonValue();
-        await appendToJsonArray(
-          path.resolve(__dirname, "../../results/fe.json"),
-          {
-            duration,
-            playwrightWorkflowId,
-            programId,
-          }
-        );
+        await appendToJsonArray(path.resolve(__dirname, "../results/fe.json"), {
+          duration,
+          playwrightWorkflowId,
+          programId,
+        });
         break;
       }
       case "fe-ttq": {
         const duration = await msg.args()[1].jsonValue();
         const programId = await msg.args()[2].jsonValue();
         await appendToJsonArray(
-          path.resolve(__dirname, "../../results/fe-ttq.json"),
+          path.resolve(__dirname, "../results/fe-ttq.json"),
           {
             duration,
             playwrightWorkflowId,
